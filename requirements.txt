@@ -2,7 +2,7 @@
 appdirs==1.4.4
 async-timeout==4.0.3
 blinker==1.7.0
-bonobo==0.6.4
+#bonobo==0.6.4
 certifi==2023.11.17
 charset-normalizer==3.3.2
 click==8.1.7
