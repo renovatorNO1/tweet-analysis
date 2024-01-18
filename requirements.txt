@@ -24,7 +24,7 @@ matplotlib==3.7.4
 mondrian==0.8.1
 mysql-connector-python==8.2.0
 nltk==3.8.1
-numpy==1.24.4
+#numpy==1.24.4
 oauthlib==3.2.2
 packaging==23.2
 pbr==6.0.0
