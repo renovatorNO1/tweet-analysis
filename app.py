@@ -4,6 +4,9 @@ from sentiments import second
 import os
 import traceback
 import sys
+import requests
+
+
 
 app = Flask(__name__)
 
@@ -98,6 +101,29 @@ def logout():
 	session.pop('user_id')
 	return redirect('/')
 
+
+from rq import Queue
+from redis import Redis
+from redis_jobs import count_words_at_url
+import time
+import json
+
+# Tell RQ what Redis connection to use
+redis_conn = Redis()
+q = Queue(connection=redis_conn)  # no args implies the default queue
+
+
+@app.route('/run_job', methods=['GET' ,'POST'])
+def run_job():
+	# Delay execution of count_words_at_url('http://nvie.com')
+	job = q.enqueue(count_words_at_url, 'http://nvie.com')
+	print(job.return_value())   # => None  # Changed to job.return_value() in RQ >= 1.12.0
+
+	# Now, wait a while, until the worker is finished
+	time.sleep(2)
+	print(job.return_value())   # => 889  # Changed to job.return_value() in RQ >= 1.12.0
+
+	return json.dumps(job.return_value())
 
 if __name__ == "__main__":
 	app.run(debug=True)
