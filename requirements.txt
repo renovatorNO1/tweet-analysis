@@ -1,5 +1,5 @@
 ## The following requirements were added by pip freeze:
-python-3.8.18
+python-3.8
 appdirs==1.4.4
 async-timeout==4.0.3
 blinker==1.7.0
